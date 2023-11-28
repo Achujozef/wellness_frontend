@@ -1,4 +1,4 @@
-import axios  from "axios";
+import useraxios  from "../useraxios";
 import { API_URLS } from "./config";
 
 
@@ -7,9 +7,9 @@ export const postComment =async (post, comment,user) => {
     try {
         console.log("REached Post COmment API ", post.id,"Comment:",comment);
         
-        const response = await axios.post (
+        const response = await useraxios.post (
             
-            `${API_URLS.CREATE_COMMENT}/${post.id}/?user_id=${user.user_id}`
+            `${API_URLS.CREATE_COMMENT}/${post.id}/`
 
             ,{ comment: comment });
 
@@ -20,3 +20,15 @@ export const postComment =async (post, comment,user) => {
 
     }
 };
+
+export const Get_Comments = async (post_id) => {
+    try {
+      const response = await useraxios.get(`${API_URLS.FETCH_COMMENTS}/${post_id}/`); 
+      console.log("The Comment Get Resposne",response.data)
+      
+      return response.data;
+
+    } catch (error) {
+      throw error; 
+    }
+  };

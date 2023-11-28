@@ -32,5 +32,7 @@ const UaseruserSlice = createSlice({
       });
   },
 });
+export const updateUser =()=>{
 
+}
 export default UaseruserSlice.reducer;

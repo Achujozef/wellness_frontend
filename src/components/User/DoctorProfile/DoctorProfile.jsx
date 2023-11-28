@@ -15,7 +15,8 @@ const DoctorProfile = (id) => {
   useEffect(() => {
     fetchDoctorDetails(id.id)
       .then((response) => {
-        setDoctorData(response);
+        setDoctorData(response.doctor);
+        setIsFollowing(response.follow)
       })
       .catch((error) => {
         console.error("Error Fetching Doctor Data", error);
@@ -38,7 +39,7 @@ const DoctorProfile = (id) => {
     navigate(`/slots/${doctor_id}`);
     fetchDoctorDetails(doctor_id)
   }
-  // console.log("Doctor Feeds Goted", doctorPosts);
+  console.log("the user is following the doctor", doctorData);
   return (
     <div className="w-2/4 p-4 flex flex-col items-center">
       <div className="max-w-2xl mx-auto">
@@ -49,9 +50,31 @@ const DoctorProfile = (id) => {
             className="w-80 h-80 object-cover rounded-full shadow-lg mr-4"
           />
           <div className="flex flex-col">
-            <h1 className="text-2xl font-bold text-blue-600 mb-2">
-              Dr {doctorData?.name}
-            </h1>
+          <h1 className="text-4xl font-extrabold text-blue-600 mb-4">
+  Dr {doctorData?.name}
+</h1>
+            <div className="my-4">
+  <p className="text-lg font-semibold text-blue-500">
+    Graduations:{" "}
+    {doctorData?.graduations?.map((graduation, index) => (
+      <span key={index} className="capitalize">
+        {graduation.graduation.name}
+        {index < doctorData.graduations.length - 1 && ", "}
+      </span>
+    ))}
+  </p>
+
+  <h2 className="text-2xl font-bold text-gray-600 mt-4">
+    Specializations:{" "}
+    {doctorData?.specializations?.map((specializing, index) => (
+      <span key={index} className="capitalize">
+        {specializing.specializing.name}
+        {index < doctorData.specializations.length - 1 && ", "}
+      </span>
+    ))}
+  </h2>
+</div>
+<br></br>
             <div className="flex space-x-4">
               <button
                 className={`px-4 py-2 rounded-full ${
@@ -61,11 +84,11 @@ const DoctorProfile = (id) => {
                 }`}
                 onClick={()=>handleFollowClick(id.id)}
               >
-                {isFollowing ? "Following" : "Follow"}
+                {isFollowing ? "Unfollow" : "Follow"}
               </button>
-              <button className="px-4 py-2 bg-green-500 text-white rounded-full">
+              {/* <button className="px-4 py-2 bg-green-500 text-white rounded-full">
                 Message
-              </button>
+              </button> */}
               <button className="px-4 py-2 bg-red-500 text-white rounded-full"
               onClick={()=>handleButtonClick(id.id)}>
                 Book An Appointment
@@ -74,7 +97,7 @@ const DoctorProfile = (id) => {
           </div>
         </div>
         <h2 className="text-lg font-semibold text-blue-600 mb-2">
-          Doctor's Posts
+          Posts of  Dr {doctorData?.name}
         </h2>
         <div className="overflow-y-auto mt-4" style={{ maxHeight: "580px" }}>
           <div className="m-4">

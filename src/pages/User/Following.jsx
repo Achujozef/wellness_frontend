@@ -1,20 +1,17 @@
 import React from 'react'
 import Leftnav from '../../components/User/LeftNav/Leftnav'
-import Room from '../../components/User/VideoCall/Room'
+import Following from '../../components/User/Following/Following'
 import RightNotification from '../../components/User/RightNotification/RightNotification'
-import { useParams } from 'react-router-dom';
-function DoctorProfilepage() {
-    const { value } = useParams();
 
+function UserDoctorListpage() {
   return (
     <div className='flex'>
 
         <Leftnav/>
-
-        <Room value={value}/>
+<Following/>
 <RightNotification/>
     </div>
   )
 }
 
-export default DoctorProfilepage
+export default UserDoctorListpage

@@ -1,75 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { fetchDoctors ,fetchLANGUAGES, fetchSPECIALIZING, fetchDOCTOR_BY_LANGUAGES, fetchDOCTOR_BY_SPECIALIZING } from "../../../api/fetchDoctors";
+import { fetch_Following_DOCTORS  } from "../../../api/fetchDoctors";
 import { fetchDoctorDetails } from "../../../api/DoctorProfile";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-
+import {Fetch_User_Followings} from '../../../api/fetchFollowers'
 export default function DoctorList() {
   const navigate = useNavigate()
   const [doctors, setDoctors] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredDoctors, setFilteredDoctors] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [specializations, setSpecializations] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [selectedSpecializing, setSelectedSpecializing] = useState("");
-
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchDoctors();
-        setDoctors(data);
-        setFilteredDoctors(data);
-        console.log("DOCTOR DATA IS ",data);
+        const data = await Fetch_User_Followings();
+        setDoctors(data.followed_doctors);
+        setFilteredDoctors(data.followed_doctors);
       } catch (error) {
         console.error('Error fetching doctors: ', error)
       }
     }
-    async function fetchLanguageData() {
-      try {
-        const languageData = await fetchLANGUAGES();
-        setLanguages(languageData);
-        console.log("languageData",languages);
-      } catch (error) {
-        console.error('Error fetching languages: ', error);
-      }
-    }
-    async function fetchSpecializingData() {
-      try {
-        const specializingData = await fetchSPECIALIZING();
-        setSpecializations(specializingData);
-        // console.log("specializingData",specializingData);
-      } catch (error) {
-        console.error('Error fetching specializations: ', error);
-      }
-    }
+    
     fetchData();
-    fetchLanguageData();
-    fetchSpecializingData();
-
   }, []);
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
     filterDoctors(event.target.value);
   };
-
-
-  const  handleLanguageChange = async (event) => {
-    const data = await fetchDOCTOR_BY_LANGUAGES(event.target.value);
-    setFilteredDoctors(data);
-  };
-
-
-  const handleSpecializingChange = async (event) => {
-    const data = await fetchDOCTOR_BY_SPECIALIZING(event.target.value);
-    setFilteredDoctors(data);
-  };
-
-
   const filterDoctors = (query) => {
-    let  filtered = doctors.filter((doctor) =>
+    let filtered = doctors.filter((doctor) =>
       doctor.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredDoctors(filtered);
@@ -94,32 +54,6 @@ export default function DoctorList() {
           <AiOutlineSearch />
         </div>
       </div>
-      <div className="mt-4 w-full max-w-md flex items-center">
-        <select
-          className="w-1/2 p-2 border border-gray-300 rounded-md"
-          onChange={handleLanguageChange}
-          value={selectedLanguage}
-        >
-          <option value="">Select Language</option>
-          {languages?.map((language) => (
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>
-          ))}
-        </select>
-        <select
-          className="w-1/2 p-2 ml-2 border border-gray-300 rounded-md"
-          onChange={handleSpecializingChange}
-          value={selectedSpecializing}
-        >
-          <option value="">Select Specializing</option>
-          {specializations?.map((specializing) => (
-            <option key={specializing.id} value={specializing.id}>
-              {specializing.name}
-            </option>
-          ))}
-        </select>
-      </div>
 
 
       <div
@@ -138,7 +72,7 @@ export default function DoctorList() {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h2 className="text-2xl font-semibold">Dr {doctor.name}</h2>
+                <h2 className="text-2xl font-semibold">{doctor.name}</h2>
                 <p>{doctor.graduations?.map((graduation, index) => graduation.graduation.name).join(", ")}</p>
 
 
@@ -146,7 +80,6 @@ export default function DoctorList() {
                   {doctor.specializations?.map((specializing,index)=>specializing.specializing.name).join(", ")}
                 </p>
                 <div className="flex justify-between items-center mt-4">
-
                   <button className="bg-green-500 text-white px-4 py-2 rounded-md mr-2"
                   onClick={()=>handleButtonClick(doctor.id)}>
                     View Profile

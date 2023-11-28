@@ -50,6 +50,9 @@ export default function Leftnav() {
       case "MessagesPage":
         navigate("/MessagesPage");
         break;
+      case "followeddoctors":
+        navigate("/MessagesPage");
+        break;
     }
   };
 
@@ -99,6 +102,12 @@ export default function Leftnav() {
             onClick={() => handleButtonClick("MessagesPage")}
           >
             Message
+          </button>
+          <button
+            className="w-full py-2 px-4 rounded-full bg-white hover:bg-green-800 text-green-800 hover:text-white border border-green-800 hover:border-transparent transition duration-300"
+            onClick={() => handleButtonClick("followeddoctors")}
+          >
+            Followed Doctors
           </button>
           <button
             className="w-full py-2 px-4 rounded-full bg-white hover:bg-green-800 text-green-800 hover:text-white border border-green-800 hover:border-transparent transition duration-300"

@@ -4,7 +4,13 @@ import mylottie from '../../../images/lottieAnimation/loti_loading.json'
 function Loader() {
   
   return (
-    <div className='w-full align-middle p-4'>
+    <div className='w-full align-middle p-4'
+    style={{
+      content: {
+        width: '800px',
+        margin: 'auto', // Center the modal horizontally
+      },
+    }}>
         <Lottie  animationData={mylottie} loop={true} />
     </div>
   )

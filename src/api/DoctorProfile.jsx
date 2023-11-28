@@ -23,3 +23,12 @@ export const fetchDoctorPosts  = async (doctor_id) => {
     }
   };
 
+  export const fetchDOCTOR_GRADUATIONS = async () => {
+    try {
+      const response = await useraxios.get(`${API_URLS.DOCTOR_GRADUATIONS}`); 
+
+      return response.data;
+    } catch (error) {
+      throw error; 
+    }
+  };

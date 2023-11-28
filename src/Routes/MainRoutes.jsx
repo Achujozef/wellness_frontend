@@ -44,7 +44,8 @@ const SignupPage = lazy(()=> import("../pages/User/UserSignuppage"))
 const DoctorSlotpages = lazy(()=> import("../pages/User/DoctorSlotpages"))
 const UserChatpage=lazy(()=> import ("../pages/User/UserChatpage"))
 const UserMessagepage=lazy(()=> import ("../pages/User/UserMessagepage"))
-
+const UserProfile=lazy(()=> import ("../pages/User/Profilepage"))
+const Followingpage=lazy(()=> import ("../pages/User/Following"))
 const ChatZego = lazy(()=> import("../pages/Doctor/Chatpages"))
 const UserRoom =lazy(()=>import("../pages/User/Room"))
 {/* <Lottie className='h-screen' animationData={loti_loading} loop={true} /> */}
@@ -72,7 +73,7 @@ const MainRoutes = () => {
             </Route>
             <Route element={<ProtectedRoutes />}>
               <Route exact path="/" element={<HomePages />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/prof" element={<ProfilePage />} />
               <Route path="/logout" element={<LoginPage />} />
               <Route path="/Appointment" element={<Appointmentpage />} />
               <Route path="/Myclient" element={<MyClientpage />} />
@@ -97,6 +98,8 @@ const MainRoutes = () => {
               <Route path="/chat" element={<UserChatpage />} />
               <Route path="/message/:id" element={<UserMessagepage />} />
               <Route path="/user/room/:value" element={<UserRoom />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/following" element={<Followingpage />} />
             </Route>
           </Routes>
         </Suspense>

@@ -39,7 +39,7 @@ const Post = ({ post }) => {
     async function fetchData() {
       try {
         const data = await fetchDoctorDetails(post.doctor_id)
-        setDoctor(data);
+        setDoctor(data.doctor);
       } catch (error) {
         console.error("Error fetching Doctor details:", error);
       }
@@ -120,9 +120,7 @@ const handleButtonClick =()=>{
         <button className="bg-green-500 text-white rounded-md px-4 py-2 mr-2" onClick={handleViewComments}>
           Comment
         </button>
-        <button className="bg-red-500 text-white rounded-md px-4 py-2 mr-1">
-          Share
-        </button>
+
       </div>
       {showComments && (
       <CommentPopup

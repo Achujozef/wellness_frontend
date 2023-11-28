@@ -26,12 +26,12 @@ const  Room=() =>{
         const zc = await ZegoUIKitPrebuilt.create(kitToken)
         zc.joinRoom({
             container:element,
-            sharedLinks:[
-                {
-                    name: 'Copy Link',
-                    url : `http://localhost:3000/user/room/${roomId}`,
-                }
-            ],
+            // sharedLinks:[
+            //     {
+            //         name: 'Copy Link',
+            //         url : `http://localhost:3000/user/room/${roomId}`,
+            //     }
+            // ],
             scenario:{
                 mode:ZegoUIKitPrebuilt.OneONoneCall,
             },
@@ -41,7 +41,7 @@ const  Room=() =>{
         }
         console.log(users.name);
   return (
-<div className="w-3/4 p-4 flex flex-col items-center">
+    <div className="w-1/2 p-4 flex flex-col items-center">
        <div ref={myMeeting}/>
     </div>
   )

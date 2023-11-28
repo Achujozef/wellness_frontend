@@ -48,6 +48,13 @@ export default function Leftnav() {
         case "MessagesPage":
           navigate("");
           break;
+        case "profile":
+          navigate("/profile");
+          break;
+          case "following":
+            navigate("/following");
+            break;  
+
       }
     };
   return (
@@ -65,9 +72,9 @@ export default function Leftnav() {
     </div>
     <button
       className='my-2 p-2 rounded-md bg-white hover:bg-green-600 border cursor-pointer'
-      onClick={() => handleButtonClick("chat")}
+      onClick={() => handleButtonClick("following")}
     >
-      <h1 className='text-xl font-semibold mb-4'>Messages</h1>
+      <h1 className='text-xl font-semibold mb-4'>Following</h1>
     </button>
     <button
       className='my-2 p-2 rounded-md bg-white hover:bg-green-600 border cursor-pointer'
@@ -75,6 +82,13 @@ export default function Leftnav() {
     >
       <h1 className='text-xl font-semibold mb-4'>Doctors</h1>
     </button>
+    <button
+      className='my-2 p-2 rounded-md bg-white hover:bg-green-600 border cursor-pointer'
+      onClick={() => handleButtonClick('profile')}
+    >
+      <h1 className='text-xl font-semibold mb-4'>My Profile</h1>
+    </button>
+
     <button
       className='my-2 p-2 rounded-md bg-white  hover:bg-green-600 border cursor-pointer'
       onClick={() => handleButtonClick("Item !")}
